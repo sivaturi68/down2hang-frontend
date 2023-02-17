@@ -1,2 +1,2 @@
-# down2hang
-cs 321 group project
+# down2hang frontend
+cs 321 group project UI/App development repo
