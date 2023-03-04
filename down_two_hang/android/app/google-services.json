@@ -29,6 +29,13 @@
             {
               "client_id": "377914246325-52k60efgqp2jt78el326cvauu7l63gim.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "377914246325-44nnpr0sktvs87np5oq8bled9m1g4fut.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.downTwoHang"
+              }
             }
           ]
         }
