@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "377914246325",
+    "project_id": "down2hang",
+    "storage_bucket": "down2hang.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:377914246325:android:e71d0de2747bfe08012afc",
+        "android_client_info": {
+          "package_name": "com.example.down_two_hang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "377914246325-52k60efgqp2jt78el326cvauu7l63gim.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwQ6ZkKK-O-sFUKhenFB_Navb3xTr6RHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "377914246325-52k60efgqp2jt78el326cvauu7l63gim.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
