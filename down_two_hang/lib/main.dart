@@ -20,7 +20,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: title,
-    theme: ThemeData(primarySwatch:Colors.deepPurple),
+    theme: ThemeData(
+      primarySwatch:Colors.deepPurple,
+      textSelectionTheme: TextSelectionThemeData( // have text selection be white
+        selectionColor: Colors.white.withAlpha(100),
+        selectionHandleColor: Colors.white,
+        cursorColor: Colors.white,
+      )
+    ),
     // home: MyHomePage(title: title), // original line
     home: LoginPage(), // test line
   );
