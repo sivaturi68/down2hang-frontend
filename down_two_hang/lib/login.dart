@@ -16,22 +16,82 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
+              const SizedBox(height: 50), // 50 px of padding
+
               /* Icon */
-              SvgPicture(
+              const SvgPicture(
+                //? Replace this with our own logo
                 AssetBytesLoader('lib/icons/test.svg.vec'),
                 height: 150,
                 width: 150,
-              )
+              ),
+              const SizedBox(height: 50), // 50 px of padding
+
               /* welcome message */
+              const Center(
+                child: Text(
+                  'Welcome to Down2Hang!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20
+                  ),
+                ),
+              ),
+              const SizedBox(height: 25), // 25 px of padding
+
               /* username textfield */
+              Container(
+                padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                child: const TextField(
+                  autocorrect: false,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25
+                  ),
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+
               /* password textfield */
+              Container(
+                padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                child: const TextField(
+                  autocorrect: false,
+                  obscureText: true,
+                  obscuringCharacter: '●',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25
+                  ),
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+
               /* forgot password */
+
               /* sign in button */
+
               /* alternative sign in (google, apple, etc). */
+
               /* register button */
+
             ]
           )
         )
@@ -39,25 +99,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-/*
-        Column(children: [
-            /* logo */
-            SvgPicture.asset(
-              'lib/icons/test.svg',
-              semanticsLabel: 'Test logo, must change',
-            ),
-            /* welcome message */
-            /* username textfield */
-            /* password textfield */
-            /* forgot password */
-            /* signin button */
-            /* alternative signin (google, apple, etc). */
-            /* register button */
-          ]
-        )
- */
-
 
 // class _LoginPageState extends State<LoginPage> {
 //   @override
