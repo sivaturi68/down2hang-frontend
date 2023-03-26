@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
+import 'login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
     title: title,
     theme: ThemeData(primarySwatch:Colors.deepPurple),
-    home: MyHomePage(title: title),
+    // home: MyHomePage(title: title), // original line
+    home: LoginPage(), // test line
   );
 }
 

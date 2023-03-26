@@ -342,7 +342,7 @@ packages:
     source: hosted
     version: "1.1.4"
   vector_graphics_compiler:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: vector_graphics_compiler
       sha256: "0bf61ad56e6fd6688a2865d3ceaea396bc6a0a90ea0d7ad5049b1b76c09d6163"
