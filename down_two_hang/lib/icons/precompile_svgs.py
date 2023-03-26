@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-#!!! IMPORTANT: run this from the down_two_hang dir
+# !!! IMPORTANT: run this from the down_two_hang dir
 
 files = os.listdir('./lib/icons/')
 files = list(filter(lambda x: x.endswith('.svg'), files))
