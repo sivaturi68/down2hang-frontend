@@ -5,15 +5,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 class LoginTextField extends StatelessWidget {
-  // final TextEditingController controller;
+  final TextEditingController controller;
   final String labelText;
   final bool isPassword;
 
   const LoginTextField({
     super.key,
-    // required this.controller,
-    required this.labelText,
-    required this.isPassword,
+    required this.controller, // object responsible for getting the text from input
+    required this.labelText, // the label of the input before typing in it
+    required this.isPassword, // whether the characters should be obscured or not
   });
 
   @override
@@ -21,7 +21,7 @@ class LoginTextField extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextField(
-        // controller: controller,
+        controller: controller,
         autocorrect: false,
         obscureText: isPassword,
         obscuringCharacter: '●',

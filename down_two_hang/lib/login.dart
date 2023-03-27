@@ -9,7 +9,15 @@ import './components/login_text_field.dart';
 final databaseRef = FirebaseFirestore.instance.collection('users');
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+
+  /* ----------------- controllers for login text input fields ---------------- */
+  final usernameController = TextEditingController(
+    // TODO: implement
+  );
+  final passwordController = TextEditingController(
+    // TODO: implement
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -18,20 +26,20 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
-            children: const [
-              SizedBox(height: 50), // 50 px of padding
+            children: [
+              const SizedBox(height: 50), // 50 px of padding
 
               /* Icon */
-              SvgPicture(
+              const SvgPicture(
                 //? Replace this with our own logo
                 AssetBytesLoader('lib/icons/test.svg.vec'),
                 height: 150,
                 width: 150,
               ),
-              SizedBox(height: 50), // 50 px of padding
+              const SizedBox(height: 50), // 50 px of padding
 
               /* welcome message */
-              Center(
+              const Center(
                 child: Text(
                   'Welcome to Down2Hang!',
                   style: TextStyle(
@@ -40,23 +48,34 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 25), // 25 px of padding
+              const SizedBox(height: 25), // 25 px of padding
 
               /* username textfield */
               LoginTextField(
+                controller: usernameController,
                 labelText: 'Username',
                 isPassword: false,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               /* password textfield */
               LoginTextField(
+                controller: passwordController,
                 labelText: 'Password',
                 isPassword: true,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-              /* forgot password */
+              /* forgot login info */
+              Center(
+                child: Text(
+                  'Forgot login info?',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14
+                  ),
+                ),
+              ),
 
               /* sign in button */
 
