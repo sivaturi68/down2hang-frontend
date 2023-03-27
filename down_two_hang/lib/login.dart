@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
+import './components/login_text_field.dart';
+
 final databaseRef = FirebaseFirestore.instance.collection('users');
 
 class LoginPage extends StatelessWidget {
@@ -16,20 +18,20 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
-            children: [
-              const SizedBox(height: 50), // 50 px of padding
+            children: const [
+              SizedBox(height: 50), // 50 px of padding
 
               /* Icon */
-              const SvgPicture(
+              SvgPicture(
                 //? Replace this with our own logo
                 AssetBytesLoader('lib/icons/test.svg.vec'),
                 height: 150,
                 width: 150,
               ),
-              const SizedBox(height: 50), // 50 px of padding
+              SizedBox(height: 50), // 50 px of padding
 
               /* welcome message */
-              const Center(
+              Center(
                 child: Text(
                   'Welcome to Down2Hang!',
                   style: TextStyle(
@@ -38,51 +40,21 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 25), // 25 px of padding
+              SizedBox(height: 25), // 25 px of padding
 
               /* username textfield */
-              Container(
-                padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                child: const TextField(
-                  autocorrect: false,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25
-                  ),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                  ),
-                ),
+              LoginTextField(
+                labelText: 'Username',
+                isPassword: false,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
 
               /* password textfield */
-              Container(
-                padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                child: const TextField(
-                  autocorrect: false,
-                  obscureText: true,
-                  obscuringCharacter: '●',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25
-                  ),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                  ),
-                ),
+              LoginTextField(
+                labelText: 'Password',
+                isPassword: true,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
 
               /* forgot password */
 
