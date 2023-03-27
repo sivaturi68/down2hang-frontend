@@ -67,7 +67,7 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 10),
 
               /* forgot login info */
-              Center(
+              const Center(
                 child: Text(
                   'Forgot login info?',
                   style: TextStyle(
