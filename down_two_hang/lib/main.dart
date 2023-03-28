@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 import 'login.dart';
+import 'homepage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,18 +20,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: title,
-    theme: ThemeData(
-      primarySwatch:Colors.deepPurple,
-      textSelectionTheme: TextSelectionThemeData( // have text selection be white
-        selectionColor: Colors.white.withAlpha(100),
-        selectionHandleColor: Colors.white,
-        cursorColor: Colors.white,
-      )
-    ),
-    // home: MyHomePage(title: title), // original line
-    home: LoginPage(), // test line
-  );
+        title: title,
+        theme: ThemeData(
+            primarySwatch: Colors.deepPurple,
+            textSelectionTheme: TextSelectionThemeData(
+              // have text selection be white
+              selectionColor: Colors.white.withAlpha(100),
+              selectionHandleColor: Colors.white,
+              cursorColor: Colors.white,
+            )),
+        // home: MyHomePage(title: title), // original line
+        home: LoginPage(), // test line
+      );
 }
 
 class MyHomePage extends StatefulWidget {
@@ -53,7 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -62,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
             const Text(
               'Are You Down?',
             ),
@@ -70,32 +69,24 @@ class _MyHomePageState extends State<MyHomePage> {
               '$value',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-
-          buildSwitch(),
-
+            buildSwitch(),
           ],
         ),
       ),
-
     );
   }
 
-
   Widget buildSwitch() => Transform.scale(
-    scale: 2,
-    child: Switch.adaptive(
-      activeColor: Color.fromARGB(255, 123, 32, 139),
-      activeTrackColor: Color.fromARGB(255, 227, 124, 246),
-      inactiveThumbColor: Color.fromARGB(255, 227, 124, 246),
-      inactiveTrackColor: Color.fromARGB(255, 236, 195, 244),
-      
-      value: value,
-      onChanged: (value) => setState(() {
-        this.value = value;
-        updateUserOnlineStatus(value);
-      })
-      ),
-  );
-
+        scale: 2,
+        child: Switch.adaptive(
+            activeColor: Color.fromARGB(255, 123, 32, 139),
+            activeTrackColor: Color.fromARGB(255, 227, 124, 246),
+            inactiveThumbColor: Color.fromARGB(255, 227, 124, 246),
+            inactiveTrackColor: Color.fromARGB(255, 236, 195, 244),
+            value: value,
+            onChanged: (value) => setState(() {
+                  this.value = value;
+                  updateUserOnlineStatus(value);
+                })),
+      );
 }
-
