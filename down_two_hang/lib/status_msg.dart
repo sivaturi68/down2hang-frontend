@@ -16,7 +16,7 @@ class UserStatusMessage extends StatelessWidget {
           const Text(
             'Online',
             style: TextStyle(
-              color: Colors.green,
+              color: Color.fromARGB(255, 27, 163, 31),
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
