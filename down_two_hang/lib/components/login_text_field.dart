@@ -4,6 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
+import 'package:down_two_hang/app_theme.dart';
+import 'package:down_two_hang/color_palette.dart';
+
 class LoginTextField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
@@ -18,6 +21,7 @@ class LoginTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextField(
@@ -33,18 +37,19 @@ class LoginTextField extends StatelessWidget {
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.transparent),
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: colors[3]),
           ),
-          fillColor: Colors.deepPurple.shade600,
+          fillColor: colors[0],
           filled: true,
           labelText: labelText,
           labelStyle: TextStyle(
-            color: Colors.deepPurple.shade900
+            // color: Colors.deepPurple.shade900
+            color: colors[3]
           ),
-          floatingLabelStyle: const TextStyle(
+          floatingLabelStyle: TextStyle(
             backgroundColor: Colors.transparent,
-            color: Colors.white,
+            color: colors[3],
           ),
         ),
       ),

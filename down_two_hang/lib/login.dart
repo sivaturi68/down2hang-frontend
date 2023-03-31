@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 import './components/login_text_field.dart';
+import 'color_palette.dart';
 
 final databaseRef = FirebaseFirestore.instance.collection('users');
 
@@ -22,7 +23,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -31,19 +32,19 @@ class LoginPage extends StatelessWidget {
 
               /* Icon */
               const SvgPicture(
-                //? Replace this with our own logo
-                AssetBytesLoader('lib/icons/test.svg.vec'),
+                AssetBytesLoader('lib/icons/appIcon.svg.vec'),
                 height: 150,
                 width: 150,
               ),
               const SizedBox(height: 50), // 50 px of padding
 
               /* welcome message */
-              const Center(
+              Center(
                 child: Text(
                   'Welcome to Down2Hang!',
                   style: TextStyle(
-                    color: Colors.white,
+                    // color: Colors.white,
+                    color: colors[3],
                     fontSize: 20
                   ),
                 ),
@@ -67,11 +68,11 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 10),
 
               /* forgot login info */
-              const Center(
+              Center(
                 child: Text(
                   'Forgot login info?',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: colors[3],
                     fontSize: 14
                   ),
                 ),

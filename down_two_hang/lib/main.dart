@@ -5,6 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 import 'login.dart';
 import 'homepage.dart';
+import 'color_palette.dart';
+import 'util.dart';
+import 'app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,18 +23,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: title,
-        theme: ThemeData(
-            primarySwatch: Colors.deepPurple,
-            textSelectionTheme: TextSelectionThemeData(
-              // have text selection be white
-              selectionColor: Colors.white.withAlpha(100),
-              selectionHandleColor: Colors.white,
-              cursorColor: Colors.white,
-            )),
-        // home: MyHomePage(title: title), // original line
-        home: LoginPage(), // test line
-      );
+    title: title,
+    theme: AppTheme.appTheme(),
+    // home: MyHomePage(title: title), // original line
+    home: LoginPage(), // test line
+  );
 }
 
 class MyHomePage extends StatefulWidget {
