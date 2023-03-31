@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'login.dart';
+import 'homepage.dart';
 
 class UserStatusMessage extends StatelessWidget {
   final String status;
 
-  UserStatusMessage({required this.status});
+  const UserStatusMessage ({required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -11,25 +13,26 @@ class UserStatusMessage extends StatelessWidget {
     if (status == 'Online') {
       return Column(
         children: [
-          Text(
+          const Text(
             'Online',
             style: TextStyle(
               color: Colors.green,
               fontWeight: FontWeight.bold,
+              fontSize: 14,
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           ElevatedButton(
             onPressed: () {
               // TODO: Implement status message prompt
             },
-            child: Text('Set Status'),
+            child: const Text('Set Status'),
           ),
         ],
       );
     } else {
       /* otherwise don't prompt */
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 }
