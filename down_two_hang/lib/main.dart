@@ -1,3 +1,4 @@
+import 'package:down_two_hang/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,6 +8,7 @@ import 'login.dart';
 import 'homepage.dart';
 import 'color_palette.dart';
 import 'util.dart';
+import 'profile.dart';
 import 'app_theme.dart';
 
 Future<void> main() async {
