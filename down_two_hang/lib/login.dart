@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 import './components/login_text_field.dart';
+import './homepage.dart';
 import 'color_palette.dart';
 
 final databaseRef = FirebaseFirestore.instance.collection('users');
@@ -14,20 +15,21 @@ class LoginPage extends StatelessWidget {
 
   /* ----------------- controllers for login text input fields ---------------- */
   final usernameController = TextEditingController(
-    // TODO: implement
-  );
+      // TODO: implement
+      );
   final passwordController = TextEditingController(
-    // TODO: implement
-  );
+      // TODO: implement
+      );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
+        backgroundColor: Theme.of(context).primaryColor,
+        body: SafeArea(
+            child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
               const SizedBox(height: 50), // 50 px of padding
 
               /* Icon */
@@ -43,13 +45,12 @@ class LoginPage extends StatelessWidget {
                 child: Text(
                   'Welcome to Down2Hang!',
                   style: TextStyle(
-                    // color: Colors.white,
-                    color: colors[3],
-                    fontSize: 20
-                  ),
+                      // color: Colors.white,
+                      color: colors[3],
+                      fontSize: 20),
                 ),
               ),
-              const SizedBox(height: 25), // 25 px of padding
+              const SizedBox(height: 20), // 25 px of padding
 
               /* username textfield */
               LoginTextField(
@@ -71,24 +72,25 @@ class LoginPage extends StatelessWidget {
               Center(
                 child: Text(
                   'Forgot login info?',
-                  style: TextStyle(
-                    color: colors[3],
-                    fontSize: 14
-                  ),
+                  style: TextStyle(color: colors[3], fontSize: 14),
                 ),
               ),
 
+              ElevatedButton(
+                child: const Text('Login'),
+                onPressed: () {
+                  Future.delayed(const Duration(seconds: 2), () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  });
+                },
+              ),
               /* sign in button */
 
               /* alternative sign in (google, apple, etc). */
 
               /* register button */
-
-            ]
-          )
-        )
-      )
-    );
+            ]))));
   }
 }
 
@@ -106,6 +108,4 @@ class LoginPage extends StatelessWidget {
 //   }
 // }
 
-void createUser(){
-
-}
+void createUser() {}
