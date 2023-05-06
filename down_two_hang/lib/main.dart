@@ -10,6 +10,7 @@ import 'color_palette.dart';
 import 'util.dart';
 import 'profile.dart';
 import 'app_theme.dart';
+import "signup_page.dart";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +29,12 @@ class MyApp extends StatelessWidget {
     title: title,
     theme: AppTheme.appTheme(),
     // home: MyHomePage(title: title), // original line
-    home: LoginPage(), // test line
+    initialRoute: '/',
+    routes: {
+      '/': (context) => LoginPage(),
+      '/signup': (context) => SignupPage(),
+      '/home': (context) => HomePage(),
+    },
   );
 }
 

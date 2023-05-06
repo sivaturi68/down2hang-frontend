@@ -31,8 +31,10 @@ class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser;
 
   // function changes the status of the 'isOnline' variable
-  void updateUserOnlineStatus(bool isOnline) async {
-    await databaseRef.doc(user?.uid).update({'isOnline': isOnline});
+  void updateUserOnlineStatus(bool isOnline) {
+    if(user != Null){
+      databaseRef.doc(user?.uid).update({'isOnline': isOnline});
+    }
   }
 
   @override
