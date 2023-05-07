@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignupPageState createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
@@ -17,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Create New Account'),
       ),
       body: Form(
         key: _formKey,
@@ -64,23 +65,10 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    _signIn();
+                    _createUser();
                   }
                 },
-                child: const Text('Login'),
-              ),
-              const SizedBox(height: 16.0),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/signup');
-                },
-                child: const Text(
-                  'Don\'t have an account? Sign up',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
+                child: const Text('Create Account'),
               ),
             ],
           ),
@@ -89,35 +77,35 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _signIn() async {
+  void _createUser() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _email,
         password: _password,
       );
+      // create user in Firestore
+      await FirebaseFirestore.instance.collection('users').doc(_email).set({
+        'email': _email,
+      });
+      // navigate to home page
       Navigator.pushNamedAndRemoveUntil(context, '/home', (_) => false);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        // Password is weak
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('The password provided is too weak.'),
+        ));
+      } else if (e.code == 'email-already-in-use') {
+        // Email is already in use
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('The account already exists for that email.'),
+        ));
+      } else {
+        // Other errors
+        print('Error creating user: $e');
+      }
     } catch (e) {
-      print('Error signing in: $e');
-      _showErrorDialog('Incorrect email or password');
+      print('Error creating user: $e');
     }
   }
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          title: const Text('Error'),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
-
