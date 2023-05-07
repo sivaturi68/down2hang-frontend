@@ -110,6 +110,14 @@ class _SignupPageState extends State<SignupPage> {
       await FirebaseAuth.instance.currentUser
         ?.updateDisplayName(_displayName);
 
+      // add "time of down" field
+      await FirebaseFirestore.instance.collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .update({
+            'timeOfDown': Timestamp.now(),
+            'isOnline': false,
+          });
+
       // navigate to home page
       Navigator.pushNamedAndRemoveUntil(context, '/home', (_) => false);
     } on FirebaseAuthException catch (e) {

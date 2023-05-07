@@ -33,13 +33,42 @@ class _HomePageState extends State<HomePage> {
   // function changes the status of the 'isOnline' variable
   void updateUserOnlineStatus(bool isOnline) {
     if(user != Null){
-      databaseRef.doc(user?.uid).update({'isOnline': isOnline});
+      databaseRef.doc(user?.uid).update({
+        'isOnline': isOnline,
+        'timeOfDown': Timestamp.now(),
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     var username = user?.displayName ?? "null user";
+    var timerMessage = '';
+    databaseRef.doc(user?.uid).get()
+      .then((doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          if (data.keys.contains('isOnline')) {
+            if (data['isOnline']) {
+              if (data.keys.contains('timeOfDown')) {
+                var timeDiff = DateTime.now()
+                    .difference((data['timeOfDown'] as Timestamp).toDate());
+                if (timeDiff.inMinutes < 1) {
+                  timerMessage = 'You just went online!';
+                } else {
+                  timerMessage = 'You\'ve been online for $timeDiff';
+                }
+              } else {
+                throw Exception('timeOfDown field doesn\'t exist');
+              }
+            } else {
+              timerMessage = 'You are online';
+            }
+          } else {
+            throw Exception('isOnline field doesn\'t exist');
+          }
+        },
+        onError: (e) => print(e)
+      );
     return Scaffold(
       backgroundColor: colors[1],
       body: Center(
@@ -50,7 +79,16 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.only(top: 100),
             ),
             Text(
-              'Hello, $username! {INSERT TIMER HERE}',
+              'Hello, $username!',
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 100),
+            ),
+            Text(
+              timerMessage,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
