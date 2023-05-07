@@ -39,6 +39,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var username = user?.displayName ?? "null user";
     return Scaffold(
       backgroundColor: colors[1],
       body: Center(
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.only(top: 100),
             ),
             Text(
-              'Hello, $user! {INSERT TIMER HERE}',
+              'Hello, $username! {INSERT TIMER HERE}',
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),

@@ -11,6 +11,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
+  String _displayName = '';
   String _email = '';
   String _password = '';
 
@@ -27,6 +28,23 @@ class _SignupPageState extends State<SignupPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: 'Display Name',
+                  hintText: 'Enter your display name',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your display name';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _displayName = value!;
+                },
+              ),
+              const SizedBox(height: 16.0),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
@@ -81,12 +99,17 @@ class _SignupPageState extends State<SignupPage> {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _email,
-        password: _password,
+        password: _password
       );
       // create user in Firestore
       await FirebaseFirestore.instance.collection('users').doc(_email).set({
         'email': _email,
       });
+
+      // set user's display name
+      await FirebaseAuth.instance.currentUser
+        ?.updateDisplayName(_displayName);
+
       // navigate to home page
       Navigator.pushNamedAndRemoveUntil(context, '/home', (_) => false);
     } on FirebaseAuthException catch (e) {
