@@ -89,18 +89,29 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _signIn() async {
+void _signIn() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _email,
         password: _password,
       );
+      
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null && user.displayName == null) {
+        String displayName = _email.split('@')[0];
+        await user.updateDisplayName(displayName);
+        await user.reload();
+      }
+
       Navigator.pushNamedAndRemoveUntil(context, '/home', (_) => false);
     } catch (e) {
       print('Error signing in: $e');
       _showErrorDialog('Incorrect email or password');
     }
   }
+
+
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -120,4 +131,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-

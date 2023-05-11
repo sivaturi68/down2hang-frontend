@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'color_palette.dart';
 import 'profile.dart';
+import 'events.dart';
+import 'friends.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,13 +14,37 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+
   void onTabTapped(int index) {
-    if (index == 2) {
+    if (index == 0) {
+      setState(() {
+        _currentIndex = index;
+      });
+      // Navigate to the first tab's page
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => FriendsPage()),
+      );
+    } else if (index == 1) {
+      setState(() {
+        _currentIndex = index;
+      });
+      // Navigate to the second tab's page
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => EventsPage()),
+      );
+    } else if (index == 2) {
+      setState(() {
+        _currentIndex = index;
+      });
+      // Navigate to the profile page
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ProfilePage()),
       );
     } else {
+      // Update the current index for other cases
       setState(() {
         _currentIndex = index;
       });
@@ -32,7 +58,7 @@ class _HomePageState extends State<HomePage> {
 
   // function changes the status of the 'isOnline' variable
   void updateUserOnlineStatus(bool isOnline) {
-    if(user != Null){
+    if (user != Null) {
       databaseRef.doc(user?.uid).update({
         'isOnline': isOnline,
         'timeOfDown': Timestamp.now(),
@@ -44,31 +70,28 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var username = user?.displayName ?? "null user";
     var timerMessage = '';
-    databaseRef.doc(user?.uid).get()
-      .then((doc) {
-          final data = doc.data() as Map<String, dynamic>;
-          if (data.keys.contains('isOnline')) {
-            if (data['isOnline']) {
-              if (data.keys.contains('timeOfDown')) {
-                var timeDiff = DateTime.now()
-                    .difference((data['timeOfDown'] as Timestamp).toDate());
-                if (timeDiff.inMinutes < 1) {
-                  timerMessage = 'You just went online!';
-                } else {
-                  timerMessage = 'You\'ve been online for $timeDiff';
-                }
-              } else {
-                throw Exception('timeOfDown field doesn\'t exist');
-              }
+    databaseRef.doc(user?.uid).get().then((doc) {
+      final data = doc.data() as Map<String, dynamic>;
+      if (data.keys.contains('isOnline')) {
+        if (data['isOnline']) {
+          if (data.keys.contains('timeOfDown')) {
+            var timeDiff = DateTime.now()
+                .difference((data['timeOfDown'] as Timestamp).toDate());
+            if (timeDiff.inMinutes < 1) {
+              timerMessage = 'You just went online!';
             } else {
-              timerMessage = 'You are online';
+              timerMessage = 'You\'ve been online for $timeDiff';
             }
           } else {
-            throw Exception('isOnline field doesn\'t exist');
+            throw Exception('timeOfDown field doesn\'t exist');
           }
-        },
-        onError: (e) => print(e)
-      );
+        } else {
+          timerMessage = 'You are online';
+        }
+      } else {
+        throw Exception('isOnline field doesn\'t exist');
+      }
+    }, onError: (e) => print(e));
     return Scaffold(
       backgroundColor: colors[1],
       body: Center(
@@ -82,10 +105,10 @@ class _HomePageState extends State<HomePage> {
               'Hello, $username!',
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
             ),
             const Padding(
-              padding: EdgeInsets.only(top: 100),
+              padding: EdgeInsets.only(top: 50),
             ),
             Text(
               timerMessage,
@@ -94,7 +117,7 @@ class _HomePageState extends State<HomePage> {
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             ),
             const Padding(
-              padding: EdgeInsets.only(top: 100),
+              padding: EdgeInsets.only(top: 50),
             ),
             const Text(
               'Are You Down?',
@@ -110,7 +133,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             const Padding(
-              padding: EdgeInsets.only(top: 120),
+              padding: EdgeInsets.only(top: 75),
             ),
             Container(
                 color: Colors.white,
